@@ -52,7 +52,7 @@ contract SimpleBank {
 
     /// @notice Get balance
     /// @return The balance of the user
-    function getBalance() public returns (uint) {
+    function getBalance() public view returns (uint) {
       // 1. A SPECIAL KEYWORD prevents function from editing state variables;
       //    allows function to run locally/off blockchain
       // 2. Get the balance of the sender of this transaction
@@ -63,6 +63,8 @@ contract SimpleBank {
     /// @return The users enrolled status
     // Emit the appropriate event
     function enroll() public returns (bool){
+
+      require(enrolled[msg.sender] == false, "This user is already enrolled");
       // 1. enroll of the sender of this transaction
       enrolled[msg.sender] = true;
       emit LogEnrolled(msg.sender);
