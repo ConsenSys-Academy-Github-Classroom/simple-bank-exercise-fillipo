@@ -68,6 +68,8 @@ contract SimpleBank {
       // 1. enroll of the sender of this transaction
       enrolled[msg.sender] = true;
       emit LogEnrolled(msg.sender);
+      
+      return enrolled[msg.sender];
     }
 
     /// @notice Deposit ether into bank
@@ -104,8 +106,8 @@ contract SimpleBank {
 
       // 2. Transfer Eth to the sender and decrement the withdrawal amount from
       //    sender's balance
-      (bool success, ) = msg.sender.call.value(withdrawAmount)("");
-      require(success, "Transfer failed.");
+      // (bool success, ) = msg.sender.call.value(withdrawAmount)("");
+      // require(success, "Transfer failed.");
       balances[msg.sender] = balances[msg.sender] - withdrawAmount;
 
       // 3. Emit the appropriate event for this message
